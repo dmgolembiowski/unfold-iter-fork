@@ -1,3 +1,6 @@
+#![no_std]
+use core::mem;
+
 pub fn unfold<T, F>(init: T, next: F) -> Unfold<T, F>
 where
     F: Fn(&T) -> T,
@@ -18,7 +21,7 @@ where
 
     fn next(&mut self) -> Option<Self::Item> {
         let next = (self.next)(&self.state);
-        let prev = std::mem::replace(&mut self.state, next);
+        let prev = mem::replace(&mut self.state, next);
         Some(prev)
     }
 }
